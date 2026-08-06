@@ -1,5 +1,11 @@
 # 🤖 AI SQL Analyst
 
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green?logo=fastapi)
+![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-blue?logo=postgresql)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
 An AI-powered SQL Analyst that allows users to upload CSV files and analyze data using natural language.
 
 ## ✨ Features
