@@ -1,0 +1,47 @@
+/* styles/dashboard.css */
+
+
+
+/* Main layout wrapper */
+.dashboard-layout, 
+.dashboard-container,
+.dashboard-content {
+  background-color: #0b0f17 !important; /* Pure Dark Background */
+  min-height: 100vh;
+  width: 100%;
+  color: #f8fafc;
+  border: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar ke pass waala main content area */
+.main-content, 
+.workspace-container {
+  background-color: #0b0f17 !important;
+  border: none !important;
+}
+.dashboard-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
+  color: #64748b;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.loader-pulse {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #6366f1;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0; }
+}

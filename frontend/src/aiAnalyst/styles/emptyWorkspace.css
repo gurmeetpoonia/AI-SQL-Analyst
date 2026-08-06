@@ -1,0 +1,104 @@
+/* styles/emptyWorkspace.css */
+
+.empty-workspace {
+  flex: 1;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0b0f17;
+  color: #fff;
+}
+
+.workspace-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.workspace-logo {
+  width: 90px;
+  height: 90px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #6d5efc, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: white;
+  margin-bottom: 28px;
+  box-shadow: 0 20px 60px rgba(124, 58, 237, .35);
+}
+
+.workspace-center h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.workspace-subtitle {
+  width: 650px;
+  max-width: 90%;
+  color: #94a3b8;
+  line-height: 1.8;
+  font-size: 18px;
+  margin-bottom: 36px;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  border-radius: 14px;
+  padding: 16px 30px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.upload-btn:hover {
+  transform: translateY(-3px);
+}
+
+.feature-list {
+  margin-top: 60px;
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.feature-card {
+  width: 220px;
+  padding: 24px;
+  background: #111827;
+  border: 1px solid #243041;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transition: .3s;
+}
+
+.feature-card svg {
+  font-size: 34px;
+  color: #7c3aed;
+}
+
+.feature-card span {
+  color: #dbe4ee;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: #7c3aed;
+}

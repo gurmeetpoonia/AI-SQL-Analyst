@@ -1,0 +1,152 @@
+/* ==========================================
+   Workspace Floating Input Wrapper
+   ========================================== */
+.workspace-input-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 2rem 1.5rem 1.25rem 1.5rem;
+  z-index: 1000;
+  pointer-events: none;
+  box-sizing: border-box;
+  /* Fade gradient so text scrolls smoothly under it, ChatGPT style */
+  background: linear-gradient(to top, #0b0f17 40%, rgba(11, 15, 23, 0));
+}
+
+/* Floating Input Box Container */
+.workspace-input {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+
+  background: #141b26; /* Solid, matches page — no glass/blur */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.workspace-input:focus-within,
+.workspace-input.has-text {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.5), 0 0 12px rgba(99, 102, 241, 0.2);
+}
+
+.upload-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.upload-icon-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+.workspace-input input[type="text"] {
+  flex: 1;
+  padding: 0.6rem 0.25rem;
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  outline: none;
+  font-weight: 400;
+}
+
+.workspace-input input[type="text"]::placeholder {
+  color: #64748b;
+}
+
+.send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #475569;
+  cursor: not-allowed;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.send-btn.active {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+}
+
+.send-btn.active:hover {
+  background: linear-gradient(135deg, #4f46e5, #4338ca);
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.6);
+}
+
+.send-btn.active:active {
+  transform: scale(0.95);
+}
+
+.spinner-icon {
+  animation: spin 1s linear infinite;
+  font-size: 0.9rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   Mobile & Tablet Responsive Fixes
+   ========================================== */
+@media (max-width: 1024px) {
+  .workspace-input-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: env(safe-area-inset-bottom);
+    padding: 1.5rem 8px calc(env(safe-area-inset-bottom) + 10px) 8px;
+    z-index: 1000;
+  }
+
+  .workspace-input {
+    width: 95%;
+    padding: 0.4rem 0.6rem;
+    border-radius: 24px;
+    gap: 0.5rem;
+  }
+
+  .upload-icon-btn, .send-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 0.85rem;
+  }
+
+  .workspace-input input[type="text"] {
+    font-size: 0.88rem;
+  }
+}

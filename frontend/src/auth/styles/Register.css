@@ -1,0 +1,333 @@
+/* --- Base Container & 3D Environment --- */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #090d16; /* Deep dark background */
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px; /* Enables true 3D space for children */
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif; /* Assuming you use Inter, otherwise default sans-serif */
+}
+
+/* --- Animated 3D Background Glowing Orbs --- */
+.bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.4;
+  z-index: 1;
+  animation: floatOrb 12s ease-in-out infinite alternate;
+}
+
+.blob-1 {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6); /* Blue to Purple */
+  top: 10%;
+  left: 15%;
+}
+
+.blob-2 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6); /* Cyan to Blue */
+  bottom: 10%;
+  right: 15%;
+  animation-delay: -6s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -50px) scale(1.1); }
+  100% { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+/* --- 3D Card Floating Wrapper --- */
+.card-3d-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  transform-style: preserve-3d;
+  animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+
+/* Red border highlight for input on error */
+.input-group.has-error input {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(50px) rotateX(15deg) rotateY(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) rotateY(0) scale(1);
+  }
+}
+
+/* --- Glassmorphism Form Card --- */
+.auth-form {
+  width: 100%;
+  background: rgba(30, 41, 59, 0.6); /* Translucent Slate */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
+              0 0 30px rgba(59, 130, 246, 0.1);
+  border-radius: 24px;
+  padding: 40px 32px;
+  box-sizing: border-box;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Subtle 3D tilt effect on hover */
+.card-3d-wrapper:hover .auth-form {
+  transform: translateY(-5px) rotateX(2deg) rotateY(1deg);
+  box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.8),
+              0 0 40px rgba(59, 130, 246, 0.2);
+}
+
+/* --- Brand Icon Header --- */
+.brand-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+  /* Lifts the icon in 3D space */
+  transform: translateZ(30px); 
+}
+
+.brand-icon {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+.auth-form h1 {
+  color: #ffffff;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.auth-form .subtitle {
+  color: #94a3b8;
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+/* --- Input Groups & Icons --- */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.field-icon {
+  position: absolute;
+  left: 16px;
+  color: #64748b; /* Slate 500 */
+  font-size: 16px;
+  pointer-events: none;
+  transition: color 0.3s ease;
+  z-index: 3;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 14px 16px 14px 46px; /* Extra left padding for icon */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.8); /* Slate 900 */
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-form input::placeholder {
+  color: #64748b;
+}
+
+/* Input Focus States */
+.auth-form input:focus {
+  border-color: #3b82f6; /* Blue 500 */
+  background: rgba(15, 23, 42, 1);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15),
+              0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+/* Icon change on focus */
+.input-group:focus-within .field-icon {
+  color: #3b82f6;
+}
+
+/* --- Password Toggle Button (Used in Login) --- */
+.password-box input {
+  padding-right: 48px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  width: auto !important; /* Override general button styles if any */
+}
+
+.toggle-password:hover {
+  color: #3b82f6;
+  background: transparent !important;
+}
+
+/* --- Interactive Submit Button --- */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8); /* Blue gradient */
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.5);
+  margin-top: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  box-shadow: 0 12px 28px -4px rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 5px 15px -4px rgba(37, 99, 235, 0.5);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Loading Spinner & Content --- */
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.spinner-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Footer Links --- */
+.footer-link {
+  color: #94a3b8;
+  text-align: center;
+  margin-top: 28px;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.highlight-link {
+  color: #60a5fa; /* Blue 400 */
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 6px;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.highlight-link:hover {
+  color: #93c5fd; /* Blue 300 */
+  text-shadow: 0 0 10px rgba(147, 197, 253, 0.5);
+  transform: translateY(-1px);
+}
+
+/* --- Single Line Warning Box Below Input --- */
+.password-warning-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.12); /* Soft Red Tint */
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-top: -10px; /* Attach neatly below input */
+  margin-bottom: 20px;
+  color: #fca5a5; /* Soft light red text */
+  font-size: 12.5px;
+  line-height: 1.4;
+  animation: slideDown 0.25s ease-out forwards;
+}
+
+.password-warning-line .warning-icon {
+  font-size: 14px;
+  color: #ef4444;
+  flex-shrink: 0;
+}
+
+/* Red border highlight for input on error */
+.input-group.has-error input {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

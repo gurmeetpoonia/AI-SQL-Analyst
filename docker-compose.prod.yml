@@ -1,0 +1,53 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+
+    container_name: ai-sql-backend
+
+    restart: unless-stopped
+
+    env_file:
+      - ./backend/.env
+
+    ports:
+      - "8000:8000"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+    networks:
+      - ai-network
+
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+
+    container_name: ai-sql-frontend
+
+    restart: unless-stopped
+
+    ports:
+      - "80:80"
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    networks:
+      - ai-network
+
+
+networks:
+  ai-network:
+    driver: bridge
+
+
+volumes:
+  postgres_data:

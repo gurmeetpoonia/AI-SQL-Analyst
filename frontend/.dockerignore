@@ -1,0 +1,15 @@
+node_modules
+dist
+
+.git
+.gitignore
+Dockerfile
+Dockerfile.prod
+README.m
+.env
+
+.vscode
+.idea
+
+npm-debug.log
+yarn-error.log

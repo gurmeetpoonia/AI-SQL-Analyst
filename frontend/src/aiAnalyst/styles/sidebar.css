@@ -1,0 +1,710 @@
+/* ==========================================
+   SIDEBAR MAIN (ChatGPT Dark & Glassmorphism)
+   ========================================== */
+
+.sidebar {
+  width: 270px;
+  height: 100vh;
+  background: rgba(9, 13, 22, 0.92);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  user-select: none;
+  position: relative;
+}
+
+
+.sidebar-empty-state{
+    padding:32px 18px;
+    text-align:center;
+    color:#94a3b8;
+}
+
+.empty-icon{
+    width:52px;
+    height:52px;
+    margin:auto;
+    margin-bottom:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:14px;
+    background:#151d2d;
+
+    color:#7c5cff;
+    font-size:22px;
+}
+
+.sidebar-empty-state h4{
+    color:#fff;
+    font-size:15px;
+    margin-bottom:8px;
+}
+
+.sidebar-empty-state p{
+    font-size:13px;
+    line-height:1.5;
+    color:#94a3b8;
+}
+
+/* ==========================================
+   CUSTOM SLEEK SCROLLBAR
+   ========================================== */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================
+   SIDEBAR HEADER & 3D LOGO
+   ========================================== */
+
+/* Header — icon-only, left corner (EditorSidebar jaisa hi, desktop + mobile dono) */
+.sidebar-header {
+  flex-shrink: 0;
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 50%, #1d4ed8 100%);
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.logo-text h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #ffffff;
+}
+
+.logo-text p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* ==========================================
+   SIDEBAR CONTENT & STATS
+   ========================================== */
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+}
+
+.workspace-section h3,
+.section-header-toggle h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #94a3b8;
+  font-weight: 600;
+  margin: 0;
+}
+
+.section-header-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 6px 4px;
+  border-radius: 6px;
+  transition: color 0.2s;
+  margin-bottom: 8px;
+}
+
+.section-header-toggle:hover {
+  color: #ffffff;
+}
+
+.section-header-toggle:hover h3 {
+  color: #ffffff;
+}
+
+.toggle-icon{
+    width:18px;
+    height:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#64748b;
+    flex-shrink:0;
+    transition:opacity .18s,color .18s;
+}
+
+/* OPEN = hide arrow */
+/* OPEN -> Hide completely */
+.section-header-toggle.open .toggle-icon,
+.editor-section-toggle.open .toggle-icon{
+    opacity:0;
+    visibility:hidden;
+}
+
+/* OPEN + Hover -> Show Down Arrow */
+.section-header-toggle.open:hover .toggle-icon,
+.editor-section-toggle.open:hover .toggle-icon{
+    opacity:1;
+    visibility:visible;
+    color:#fff;
+}
+
+/* CLOSED = always visible */
+/* CLOSED -> Right Arrow always visible */
+.section-header-toggle.closed .toggle-icon,
+.editor-section-toggle.closed .toggle-icon{
+    opacity:1;
+    visibility:visible;
+}
+.section-header-toggle:hover h3{
+    color:#fff;
+}
+
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.sidebar-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-stat span {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.sidebar-stat strong {
+  font-size: 13px;
+  color: #f8fafc;
+}
+
+.sidebar-stat .success { color: #4ade80; }
+.sidebar-stat .failed { color: #f87171; }
+
+/* ==========================================
+   ACTIVITY LISTS (Uploads & 3-Dots Menu Fix)
+   ========================================== */
+
+.activity-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.no-data {
+  font-size: 12px;
+  color: #475569;
+  padding: 6px 10px;
+  margin: 0;
+}
+
+.activity-item {
+  position: relative; /* Context positioning for delete menu */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+   padding:10px 12px;
+    min-height:44px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.activity-item .file-name-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.item-icon{
+    flex-shrink:0;
+    font-size:22px;
+}
+
+/* CSV */
+
+.csv-icon{
+    color:#22c55e !important;
+}
+
+/* Excel */
+
+.excel-icon{
+    color:#1D6F42 !important;
+}
+.robot-icon { color: #a78bfa; }
+
+.activity-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.activity-item:hover .file-name-text {
+  color: #ffffff;
+}
+
+/* Active Uploaded File Highlight */
+.activity-item.active-upload {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(29, 78, 216, 0.1) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.activity-item.active-upload .file-name-text {
+  color: #60a5fa;
+  font-weight: 500;
+}
+
+/* 3 Dots Menu Button */
+.file-menu-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  opacity: 0; /* Show on hover */
+  transition: all 0.2s ease;
+}
+
+.activity-item:hover .file-menu-btn {
+  opacity: 1;
+}
+
+.file-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Floating 3-Dots Dropdown */
+.file-menu {
+  position: absolute;
+  right: 10px;
+  top: calc(100% + 2px);
+  z-index: 100;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  min-width: 100px;
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.file-menu-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.file-menu-action.delete {
+  color: #f87171;
+}
+
+.file-menu-action.delete:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.file-menu-action.delete:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* ==========================================
+   FOOTER PROFILE & USER CARD
+   ========================================== */
+
+.sidebar-footer {
+  flex-shrink: 0;
+  padding: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(5, 8, 15, 0.7);
+  position: relative;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+.user-profile:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+  flex-shrink: 0;
+}
+
+.avatar.large {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+.user-details {
+  flex: 1;
+  overflow: hidden;
+}
+
+.user-details h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* User Popover Dropdown (Opens Upward) */
+.user-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 12px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.96);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+  animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 6px;
+}
+
+.user-meta {
+  overflow: hidden;
+}
+
+.user-meta h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-meta p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 4px 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 100%;
+}
+.dropdown-item:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.dropdown-item.logout {
+  color: #f87171;
+}
+
+.dropdown-item.logout:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* ==========================================
+   DELETE MODAL OVERLAY
+   ========================================== */
+
+.modal-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(6px);
+
+    z-index:99999;
+}
+
+.delete-modal{
+    width:360px;
+    max-width:90%;
+}
+
+.delete-modal h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.delete-modal p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0 0 18px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #ef4444;
+}
+
+.cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-actions button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.file-menu-action{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+}
+
+.file-menu-action:first-child{
+    color:#60a5fa;
+}
+
+.file-menu-action:first-child:hover{
+    background:rgba(59,130,246,.12);
+    color:#93c5fd;
+}
+
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* Ye poora block apni sidebar.css me end me add kar do — View Dataset modal ke liye */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+}
+
+.modal-top h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.table-modal-card {
+    width: 90vw;
+    max-width: 1200px;
+    max-height: 85vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.modal-body-table {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0b0f19;
+}

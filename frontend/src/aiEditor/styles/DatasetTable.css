@@ -1,0 +1,123 @@
+.preview-panel {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;   /* har step block ke beech clear gap */
+}
+
+.preview-panel.empty {
+    background: #111827;
+    border: 1px solid #232c3d;
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+}
+
+.preview-panel.empty h3 {
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.preview-panel .no-data {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.preview-step-block {
+    background: #111827;
+    border: 1px solid #232c3d;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: #1a2333;
+    border-bottom: 1px solid #232c3d;
+}
+
+.step-summary {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-summary::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #6366f1;
+    flex-shrink: 0;
+}
+
+.row-badge {
+    background: #6366f1;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.preview-table-container {
+    overflow-x: auto;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 760px;
+}
+
+.preview-table thead {
+    position: sticky;
+    top: 0;
+    background: #1f2937;
+    z-index: 5;
+}
+
+.preview-table th {
+    padding: 12px 16px;
+    text-align: left;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom: 1px solid #2f3a4d;
+}
+
+.preview-table td {
+    padding: 10px 16px;
+    color: #d1d5db;
+    border-bottom: 1px solid #1f2937;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.preview-table tbody tr:nth-child(even) {
+    background: #151e2d;
+}
+
+.preview-table tbody tr:hover {
+    background: #243044;
+}
+
+.preview-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.null-text {
+    color: #6b7280;
+    font-style: italic;
+}

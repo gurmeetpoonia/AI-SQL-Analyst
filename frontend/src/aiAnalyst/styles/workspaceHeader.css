@@ -1,0 +1,115 @@
+.workspace-header-container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 0;
+  /* Solid — content ab peeche se nahi dikhega */
+background: #0b0f17;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04), 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 1100;
+  
+}
+
+.header-main-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  height: 64px;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.mobile-hamburger-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mobile-hamburger-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dataset-title-static {
+  color: #f8fafc;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 6px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.ai-edit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #a855f7;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ai-edit-btn:hover {
+  background: rgba(168, 85, 247, 0.15);
+  color: #d8b4fe;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+/* ==========================================
+   MOBILE & TABLET RESPONSIVE FIXES
+   ========================================== */
+
+@media (max-width: 768px) {
+  .header-main-bar {
+    height: 58px;
+    padding: 0 1rem;
+  }
+
+  .mobile-hamburger-btn {
+    display: flex;
+  }
+
+  .dataset-title-static {
+    font-size: 15px;
+    max-width: 55vw;
+  }
+
+  .ai-edit-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dataset-title-static {
+    font-size: 14px;
+    max-width: 50vw;
+  }
+}

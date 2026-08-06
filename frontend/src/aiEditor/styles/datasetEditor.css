@@ -1,0 +1,933 @@
+/* Sidebar Container */
+.editor-sidebar {
+    width: 280px;
+    height: 100vh;
+    background: rgba(9, 13, 22, 0.92);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    color: #f1f5f9;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    user-select: none;
+}
+
+/* Icon Header - Shifted strictly to the Left Corner */
+.editor-sidebar-header {
+    flex-shrink: 0;
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.editor-logo-box {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #6366f1 0%, #3b82f6 50%, #1d4ed8 100%);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.editor-sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 12px;
+}
+
+.editor-section {
+    margin-bottom: 20px;
+}
+
+.editor-section-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 12px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.editor-section-toggle:hover{
+    background:rgba(255,255,255,.05);
+}
+
+.editor-section-toggle h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0;
+    font-size:13px;
+    color:#cbd5e1;
+}
+
+.editor-section-toggle:hover h3{
+    color:#fff;
+}
+
+.editor-section-toggle h3 svg{
+    color:#8b5cf6;
+    font-size:14px;
+}
+
+.editor-section-toggle.closed .toggle-icon{
+    opacity:1;
+}
+
+.editor-section-toggle.open .toggle-icon{
+    opacity:0;
+}
+
+.editor-section-toggle.open:hover .toggle-icon{
+    opacity:1;
+}
+
+.toggle-icon{
+    width:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#94a3b8;
+    transition:.18s;
+}
+
+.no-data {
+    font-size: 12px;
+    color: #475569;
+    padding: 6px 10px;
+    margin: 0;
+}
+
+.csv-icon{
+    color:#22c55e;
+}
+
+.excel-icon{
+    color:#16a34a;
+}
+
+/* Action Buttons */
+.editor-action-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.editor-action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.editor-action-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.editor-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Dataset List */
+.editor-dataset-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.editor-dataset-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.editor-dataset-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.editor-dataset-item.active {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(29, 78, 216, 0.1) 100%);
+    border-color: rgba(59, 130, 246, 0.35);
+}
+
+.editor-dataset-item .item-icon {
+    color: #60a5fa;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.editor-dataset-item .file-name-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #cbd5e1;
+}
+
+.editor-dataset-item.active .file-name-text {
+    color: #60a5fa;
+    font-weight: 500;
+}
+
+/* --------------------------------- */
+/* 3-dot Menu per Dataset Item        */
+/* --------------------------------- */
+
+.file-menu-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    padding: 4px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    opacity: 0;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.editor-dataset-item:hover .file-menu-btn {
+    opacity: 1;
+}
+
+.file-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.file-menu {
+    position: absolute;
+    right: 10px;
+    top: calc(100% + 2px);
+    z-index: 100;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    min-width: 140px;
+    animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.file-menu-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    border: none;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.file-menu-action:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.file-menu-action.delete {
+    color: #f87171;
+}
+
+.file-menu-action.delete:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* Version History */
+.editor-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editor-version-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.version-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.version-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f3f4f6;
+    line-height: 1.4;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.version-time {
+    font-size: 10px;
+    color: #6b7280;
+}
+
+.version-rename-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid #6366f1;
+    color: #f3f4f6;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    outline: none;
+}
+
+/* ===========================================================
+   FIX: 3-dot menu button ab sirf row hover pe dikhega.
+   "visibility" property pehle ".active" state ke sath conflict
+   kar rahi thi. Ab sirf opacity + pointer-events use kiya hai.
+   !important taaki koi global button-reset override na kar sake.
+   =========================================================== */
+.version-menu-btn {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    padding: 4px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.editor-version-item:hover .version-menu-btn {
+    opacity: 1 !important;
+    pointer-events: auto;
+}
+
+.version-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.version-menu-btn.active {
+    opacity: 1 !important;
+    pointer-events: auto;
+}
+
+.version-menu {
+    position: absolute;
+    right: 10px;
+    top: calc(100% + 2px);
+    z-index: 100;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 4px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    min-width: 140px;
+    animation: fadeIn 0.15s ease-out;
+}
+
+.version-menu-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px;
+    border: none;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.version-menu-action:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.version-menu-action.delete {
+    color: #f87171;
+}
+
+.version-menu-action.delete:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+/* --------------------------------- */
+/* Version Details Modal              */
+/* --------------------------------- */
+
+.version-details-card {
+    width: 460px;
+    max-width: 90vw;
+    max-height: 85vh;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow-y: auto;
+}
+
+.details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.details-label {
+    font-size: 12px;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+.details-value {
+    font-size: 12px;
+    color: #f3f4f6;
+    font-weight: 500;
+    text-align: right;
+    word-break: break-word;
+}
+
+.details-value.success {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #4ade80;
+}
+
+.details-section h4 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #94a3b8;
+    margin: 0 0 6px;
+    font-weight: 600;
+}
+
+.details-text {
+    font-size: 13px;
+    color: #e2e8f0;
+    line-height: 1.5;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.details-bullets {
+    margin: 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.details-bullets li {
+    font-size: 13px;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
+
+/* --------------------------------- */
+/* Bottom-fixed Profile Footer        */
+/* --------------------------------- */
+
+.editor-sidebar-footer {
+    flex-shrink: 0;
+    padding: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(5, 8, 15, 0.7);
+    position: relative;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.2s ease;
+}
+
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 12px;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    flex-shrink: 0;
+}
+
+.avatar.large {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+}
+
+.user-details {
+    flex: 1;
+    overflow: hidden;
+}
+
+.user-details h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f8fafc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+.user-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 12px;
+    right: 12px;
+    background: rgba(15, 23, 42, 0.96);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+    animation: slideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 6px;
+}
+
+.user-meta {
+    overflow: hidden;
+}
+
+.user-meta h4 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-meta p {
+    margin: 2px 0 0;
+    font-size: 11px;
+    color: #94a3b8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 4px 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    width: 100%;
+}
+
+.dropdown-item:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.dropdown-item.logout {
+    color: #f87171;
+}
+
+.dropdown-item.logout:hover {
+    background: rgba(239, 68, 68, 0.12);
+    color: #ef4444;
+}
+
+/* --------------------------------- */
+/* Modal Styling (Create Dataset)     */
+/* --------------------------------- */
+
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.create-dataset-card {
+    width: 420px;
+    max-width: 90vw;
+    max-height: 85vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow-y: auto;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.modal-top h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+.field-label {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.field-input, .field-select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #020815;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.field-input:focus, .field-select:focus {
+    outline: none;
+    border-color: #6366f1;
+}
+
+.columns-builder {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.column-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.column-row .field-input {
+    flex: 2;
+}
+
+.column-row .field-select {
+    flex: 1;
+    background-color: #64748b;
+
+}
+
+.remove-column-btn {
+    background: transparent;
+    border: none;
+    color: #f87171;
+    cursor: pointer;
+    padding: 6px;
+    flex-shrink: 0;
+}
+
+.remove-column-btn:hover {
+    color: #ef4444;
+}
+
+.add-column-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    color: #9ca3af;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.add-column-btn:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions .cancel-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.modal-actions .create-btn {
+    background: #6366f1;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-actions .create-btn:disabled,
+.modal-actions .cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --------------------------------- */
+/* Delete Confirmation Modal          */
+/* --------------------------------- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .65);
+    backdrop-filter: blur(6px);
+    z-index: 99999;
+}
+
+.delete-modal {
+    width: 360px;
+    max-width: 90%;
+    padding: 20px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+}
+
+.delete-modal h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.delete-modal p {
+    font-size: 13px;
+    color: #94a3b8;
+    margin: 0 0 18px;
+}
+
+.delete-modal .modal-actions button {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.delete-modal .cancel-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+}
+
+.delete-modal .cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.delete-modal .delete-btn {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+.delete-modal .delete-btn:hover {
+    background: #dc2626;
+}
+
+.delete-modal .delete-btn:disabled,
+.delete-modal .cancel-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* --------------------------------- */
+/* View Dataset Table Modal           */
+/* --------------------------------- */
+
+.table-modal-card {
+    width: 90vw;
+    max-width: 1200px;
+    max-height: 85vh;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.modal-body-table {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #0b0f19;
+}
