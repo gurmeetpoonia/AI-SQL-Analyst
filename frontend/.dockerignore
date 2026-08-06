@@ -6,7 +6,7 @@ dist
 Dockerfile
 Dockerfile.prod
 README.m
-.env
+
 
 .vscode
 .idea

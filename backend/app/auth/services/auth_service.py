@@ -114,10 +114,10 @@ def login_user(db:Session,request:LoginRequest):
     try:
         user=get_user_by_email(db=db,email=request.email)
         if not user:
-            raise HTTPException(status_code=401,detail="Invalid email or password.")
+            raise HTTPException(status_code=401,detail="Email not registered.")
 
         if not verify_password(request.password,user.password):
-            raise HTTPException(status_code=401,detail="Invalid email or password.")
+            raise HTTPException(status_code=401,detail="Invalid password.")
 
         access_token=create_access_token({
             "sub":user.email
