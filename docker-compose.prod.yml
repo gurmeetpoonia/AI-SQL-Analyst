@@ -35,6 +35,7 @@ services:
 
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot
 
     depends_on:
       backend:
