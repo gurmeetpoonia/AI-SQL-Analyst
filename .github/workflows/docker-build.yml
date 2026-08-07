@@ -29,8 +29,10 @@ jobs:
           context: ./backend
           file: ./backend/Dockerfile.prod
           push: true
-          tags: |
-            gurmeetpunia/ai-sql-backend:latest
+          tags: gurmeetpunia/ai-sql-backend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
 
       - name: Build and Push Frontend
         uses: docker/build-push-action@v6
@@ -38,9 +40,11 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile.prod
           push: true
-          tags: |
-            gurmeetpunia/ai-sql-frontend:latest
+          tags: gurmeetpunia/ai-sql-frontend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
+          
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
