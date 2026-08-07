@@ -1,8 +1,6 @@
 services:
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.prod
+    image: gurmeetpunia/ai-sql-backend:latest
 
     container_name: ai-sql-backend
 
@@ -25,9 +23,7 @@ services:
 
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+    image: gurmeetpunia/ai-sql-frontend:latest
 
     container_name: ai-sql-frontend
 
