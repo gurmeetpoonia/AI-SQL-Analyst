@@ -9,7 +9,6 @@ from app.auth.routes import auth
 from app.auth.routes import password
 from app.aiAnalyst.routes import dashboard
 from app.aiAnalyst.routes import history
-from app.auth.routes import email_notification
 from app.aiEditor.routes import dataset_editor
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
