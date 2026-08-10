@@ -17,7 +17,7 @@ from app.auth.services.auth_service import (
 )
 
 from app.auth.dependencies import get_current_user
-
+from app.auth.services.email_service import send_error_notification
 
 router = APIRouter(
     prefix="/auth",
@@ -82,3 +82,15 @@ def get_me(
             "email": current_user.email
         }
     }
+
+@router.get("/test-error-email")
+def test_error_email():
+    try:
+        raise Exception("Test backend error")
+    except Exception as e:
+        send_error_notification(e)
+
+        return {
+            "success": True,
+            "message": "Error notification sent"
+        }

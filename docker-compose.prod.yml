@@ -43,31 +43,6 @@ services:
 
     networks:
       - ai-network
-      
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: ai-sql-prometheus
-    restart: unless-stopped
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    ports:
-      - "9090:9090"
-    networks:
-      - ai-network
-
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: ai-sql-node-exporter
-    restart: unless-stopped
-    command:
-      - '--path.rootfs=/host'
-    volumes:
-      - '/:/host:ro,rslave'
-    ports:
-      - "9100:9100"
-    networks:
-      - ai-network
-
 networks:
   ai-network:
     driver: bridge

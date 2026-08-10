@@ -1,9 +1,10 @@
 import smtplib 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
+from email.message import EmailMessage
 from app.config import EMAIL_ADDRESS ,EMAIL_PASSWORD
 
+import traceback
 
 def send_otp_email(
         email:str,otp:str
@@ -138,3 +139,36 @@ def send_otp_email(
         server.starttls()
         server.login(EMAIL_ADDRESS,EMAIL_PASSWORD)
         server.send_message(message)
+
+def send_notification(to_email: str, subject: str, body: str):
+    msg = EmailMessage()
+
+    msg["From"] = EMAIL_ADDRESS
+    msg["To"] = to_email
+    msg["Subject"] = subject
+    msg.set_content(body)
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as server:
+        server.starttls()
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.send_message(msg)
+
+
+
+
+def send_error_notification(error: Exception):
+    body = f"""
+AI SQL Analyst - Backend Error
+
+Error:
+{str(error)}
+
+Traceback:
+{traceback.format_exc()}
+"""
+
+    send_notification(
+        to_email=EMAIL_ADDRESS,
+        subject="🚨 AI SQL Analyst Backend Error",
+        body=body
+    )              
