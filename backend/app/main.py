@@ -58,7 +58,5 @@ async def global_exception_handler(request: Request, exc: Exception):
             "message": "Internal Server Error"
         }
     )
-@app.get("/test-global-error")
-def test_global_error():
-    raise Exception("Testing global exception handler")
+
  
