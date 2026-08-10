@@ -13,6 +13,8 @@ from app.aiEditor.routes import dataset_editor
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+from app.auth.services.email_service import send_error_notification
+
 models.Base.metadata.create_all(bind=engine)
 
 app=FastAPI(title="AI SQL Analyst",version="1.0.0")
@@ -43,6 +45,12 @@ app.include_router(dataset_editor.router)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
+
+    try:
+        send_error_notification(exc)
+    except Exception as email_error:
+        print(f"Failed to send error notification: {email_error}")
+
     return JSONResponse(
         status_code=500,
         content={
