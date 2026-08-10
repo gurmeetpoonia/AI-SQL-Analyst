@@ -11,6 +11,8 @@ from app.aiAnalyst.routes import dashboard
 from app.aiAnalyst.routes import history
 from app.auth.routes import email_notification
 from app.aiEditor.routes import dataset_editor
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -39,5 +41,17 @@ app.include_router(password.router)
 app.include_router(dashboard.router)
 app.include_router(history.router)
 app.include_router(dataset_editor.router)
-app.include_router(email_notification.router)
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={
+            "success": False,
+            "message": "Internal Server Error"
+        }
+    )
+@app.get("/test-global-error")
+def test_global_error():
+    raise Exception("Testing global exception handler")
  
