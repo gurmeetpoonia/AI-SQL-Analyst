@@ -43,6 +43,73 @@ services:
 
     networks:
       - ai-network
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ai-sql-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - ai-network
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: ai-sql-node-exporter
+    restart: unless-stopped
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - '/:/host:ro,rslave'
+    ports:
+      - "9100:9100"
+    networks:
+      - ai-network
+  grafana:
+    image: grafana/grafana:latest
+    container_name: ai-sql-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - ai-network
+    volumes:
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+  loki:
+    image: grafana/loki:latest
+    container_name: ai-sql-loki
+    command: -config.file=/etc/loki/loki-config.yml
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - loki-data:/loki
+    networks:
+      - ai-network
+    restart: unless-stopped
+  promtail:
+    image: grafana/promtail:latest
+    container_name: ai-sql-promtail
+    command: -config.file=/etc/promtail/promtail-config.yml
+    volumes:
+      - ./monitoring/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-positions:/tmp
+    networks:
+      - ai-network
+    depends_on:
+      - loki
+    restart: unless-stopped
+
 networks:
   ai-network:
+    name: ai-sql-analyst_ai-network
     driver: bridge
+
+volumes:
+  grafana-data:
+  loki-data:
+  promtail-positions:
