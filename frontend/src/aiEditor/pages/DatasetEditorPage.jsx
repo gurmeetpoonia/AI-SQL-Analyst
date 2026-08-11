@@ -35,15 +35,16 @@ export default function DatasetEditorPage({ onBack}) {
 
     const [versions, setVersions] = useState([]);
 
-    const [loading, setLoading] = useState(false);
-;
+    const [loadingDataset, setLoadingDataset] = useState(false);
+
+    const [generatingPlan, setGeneratingPlan] = useState(false);
+
     const [executing, setExecuting] = useState(false);
 
-    
-    // Naya: refreshKey — jab bhi execute/undo/restore ho, isko badhao
-    // taaki EditorSidebar ka version history aur stats auto-refresh ho jayein
+
     const [refreshKey, setRefreshKey] = useState(0);
-      const { datasetId } = useParams();
+
+    const { datasetId } = useParams();
     const navigate = useNavigate();
 
     
@@ -55,7 +56,7 @@ export default function DatasetEditorPage({ onBack}) {
     if (!datasetId) return;
 
     try {
-        setLoading(true);
+        setLoadingDataset(true);
 
         const res = await getDataset(datasetId);
         setDatasetInfo(res);
@@ -65,7 +66,7 @@ export default function DatasetEditorPage({ onBack}) {
         console.log(err);
         toast.error("Failed to load dataset");
     } finally {
-        setLoading(false);
+        setLoadingDataset(false);
     }
 };
     //------------------------------------------
@@ -108,7 +109,7 @@ export default function DatasetEditorPage({ onBack}) {
     }
 
     try {
-        setLoading(true);
+        setGeneratingPlan(true);
         setPreviewData(null);
 
         const planRes = await generatePlan({
@@ -127,7 +128,7 @@ export default function DatasetEditorPage({ onBack}) {
         console.error("Error Details:", err.response?.data);
         toast.error(err.response?.data?.detail?.[0]?.msg || err.message || "Failed to generate plan.");
     } finally {
-        setLoading(false);
+        setGeneratingPlan(false);
     }
 };
 
@@ -300,7 +301,7 @@ useEffect(() => {
                 tableName={datasetInfo?.table_name}
                 onRefresh={loadDataset}
                 data ={rows}
-                loadingData={loading}
+                loadingData={loadingDataset}
                 
             />
         </div>
@@ -312,7 +313,7 @@ useEffect(() => {
                 prompt={prompt}
                 setPrompt={setPrompt}
                 onGenerate={handleGeneratePlan}
-                loading={loading}
+                loading={generatingPlan}
             />
            {previewData && (
     <>
