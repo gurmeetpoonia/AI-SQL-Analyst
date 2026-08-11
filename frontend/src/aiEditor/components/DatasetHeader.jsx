@@ -139,10 +139,6 @@ function DatasetHeader({
 
 };
 
-    if (!uploadedFile) {
-        return <div className="dataset-header-skeleton">Loading dataset...</div>;
-    }
-
     return (
         <>
             <header className="dataset-header-minimal">
