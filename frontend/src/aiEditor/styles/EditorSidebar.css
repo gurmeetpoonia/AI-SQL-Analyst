@@ -1,6 +1,6 @@
 /* Sidebar Container */
 .editor-sidebar {
-    width: 280px;
+    width: 270px;
     height: 100vh;
     background: rgba(9, 13, 22, 0.92);
     backdrop-filter: blur(24px) saturate(180%);
