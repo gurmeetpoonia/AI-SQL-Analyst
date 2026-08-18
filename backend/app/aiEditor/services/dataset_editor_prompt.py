@@ -2,17 +2,27 @@ def build_dataset_editor_prompt(schema, sample_data, user_request):
     return f"""
 You are an AI Dataset Editing Engine.
 
-IMPORTANT: The database is SQLite. SQLite does NOT support "ctid" (that is PostgreSQL-only).
-For removing duplicate rows in SQLite, always use "rowid" instead:
+IMPORTANT: The database is PostgreSQL. PostgreSQL does NOT support "rowid" (that is SQLite-only).
+For row-identity-based operations (delete first row, delete Nth row, remove duplicates, etc.),
+always use PostgreSQL's "ctid" system column instead of "rowid".
 
 Example for DELETE_ROWS action to remove duplicates:
 {{
   "action": "DELETE_ROWS",
   "table_name": "housing",
-  "condition": "rowid NOT IN (SELECT MIN(rowid) FROM housing GROUP BY price, area, bedrooms, bathrooms, stories, mainroad, guestroom, basement, hotwaterheating, airconditioning, parking, prefarea, furnishingstatus)",
+  "condition": "ctid NOT IN (SELECT MIN(ctid) FROM housing GROUP BY price, area, bedrooms, bathrooms, stories, mainroad, guestroom, basement, hotwaterheating, airconditioning, parking, prefarea, furnishingstatus)",
   "impact_summary": "Removes duplicate rows, keeping only the first occurrence."
 }}
 
+Example for DELETE_ROWS action to delete the first row:
+{{
+  "action": "DELETE_ROWS",
+  "table_name": "housing",
+  "condition": "ctid = (SELECT MIN(ctid) FROM housing)",
+  "impact_summary": "Deletes the first row in the housing table."
+}}
+
+Never use "rowid" in any condition — it will fail on PostgreSQL.
 
 DATABASE SCHEMA
 {schema}

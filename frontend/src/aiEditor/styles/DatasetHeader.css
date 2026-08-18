@@ -8,12 +8,11 @@
     flex-wrap: nowrap;
     gap: 12px;
 
-    /* Sabhi extra box styles aur borders remove kar diye hain */
-    padding: 0 0 12px 0 !important;
+  
     margin-top: 0 !important;
-    margin-bottom: 16px !important;
+    margin-bottom: 12px !important;
     /* PADDING FIX: pehle 30px thi, ab sidebar se sirf 12px */
-    padding-left: 12px !important;
+    height : 50px;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
@@ -23,6 +22,7 @@
     /* SHIFT FIX: header apni jagah fix rahe, kabhi bhi horizontally scroll/shift na ho */
     overflow: hidden;
     min-width: 0;
+    padding: 0 1.5rem;
 }
 
 

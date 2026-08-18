@@ -1,9 +1,11 @@
+import re
+
 from sqlalchemy import inspect
+
 
 def get_all_columns(engine, table_name):
     inspector = inspect(engine)
     return [col["name"] for col in inspector.get_columns(table_name)]
-
 
 
 def build_sql(step: dict, engine=None):
@@ -19,8 +21,22 @@ def build_sql(step: dict, engine=None):
         or step.get("target_column") or params_block.get("column")
     )
     condition = step.get("condition") or step.get("where") or params_block.get("condition")
-    if condition and "ctid" in condition.lower():
-        condition = condition.replace("ctid", "rowid").replace("CTID", "rowid")
+
+    # --------------------------------------------------------
+    # Dialect-aware safety net: SQLite aur PostgreSQL me
+    # row-identity column ka naam alag hota hai (rowid vs ctid).
+    # Engine ke actual dialect ke hisaab se auto-convert kar do,
+    # taaki AI kabhi galat wala bhej de to bhi crash na ho.
+    # --------------------------------------------------------
+    if condition and engine is not None:
+        dialect_name = engine.dialect.name  # "sqlite" ya "postgresql"
+
+        if dialect_name == "postgresql" and re.search(r"\browid\b", condition, re.IGNORECASE):
+            condition = re.sub(r"\browid\b", "ctid", condition, flags=re.IGNORECASE)
+
+        elif dialect_name == "sqlite" and re.search(r"\bctid\b", condition, re.IGNORECASE):
+            condition = re.sub(r"\bctid\b", "rowid", condition, flags=re.IGNORECASE)
+
     preview_params = {}
 
     if action == "BULK_REPLACE":
@@ -90,6 +106,7 @@ def build_sql(step: dict, engine=None):
                 select_parts.append(c)
 
         preview = f"SELECT {', '.join(select_parts)} FROM {table_name} WHERE {condition} ;"
+
     elif action == "INSERT_ROW":
         values = step.get("values", {})
         columns = step.get("columns")
@@ -122,13 +139,14 @@ def build_sql(step: dict, engine=None):
                 select_parts.append(f"NULL AS {c}")
 
         preview = f"SELECT {', '.join(select_parts)} ;"
+
     elif action == "ALTER_COLUMN_NAME":
         old_column = (
-            step.get("old_column") or step.get("column") 
+            step.get("old_column") or step.get("column")
             or step.get("old_name") or params_block.get("old_column")
         )
         new_column = (
-            step.get("new_column") or step.get("new_name") 
+            step.get("new_column") or step.get("new_name")
             or params_block.get("new_column")
         )
         if not old_column or not new_column:
@@ -150,6 +168,7 @@ def build_sql(step: dict, engine=None):
                 select_parts.append(c)
 
         preview = f"SELECT {', '.join(select_parts)} FROM {table_name} ;"
+
     else:
         raise ValueError(f"Unsupported action: '{action}'")
 

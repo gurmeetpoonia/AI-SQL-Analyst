@@ -28,11 +28,11 @@ html, body {
 
 .dataset-editor-heading {
     width: 100%;
-    max-width: 1200px !important; /* Standard width requirement */
     margin: 0 auto !important;     /* Horizontal centering */
     padding-top: 0 !important;   /* Maintained clean top spacing */
     padding-left: 0 !important;     /* Reset fixed left offset for standard layout */
     padding-right: 0 !important;
+    padding-bottom: 0 !important;
     box-sizing: border-box;
 }
 

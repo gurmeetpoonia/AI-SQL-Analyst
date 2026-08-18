@@ -797,7 +797,7 @@ function EditorSidebar({ activeDataset, onCloseMobile, setActiveDataset, refresh
                                                 updateColumn(idx, "type", e.target.value)
                                             }
                                         >
-                                            <option value="TEXT">Text</option>
+                                            <option  value="TEXT">Text</option>
                                             <option value="INTEGER">Number</option>
                                             <option value="REAL">Decimal</option>
                                             <option value="BOOLEAN">Yes/No</option>
