@@ -20,7 +20,7 @@ from app.auth.crud.otp_crud import create_otp
 from app.auth.services.email_service import send_otp_email
 from app.auth.hashing import hash_password
 
-
+import time
 
 
 def register_user(
@@ -112,7 +112,18 @@ def verify_otp_user(
 
 def login_user(db:Session,request:LoginRequest):
     try:
-        user=get_user_by_email(db=db,email=request.email)
+        user = None
+        for attempt in range(2):   # ek retry
+            try:
+                user = get_user_by_email(db=db, email=request.email)
+                break
+            except SQLAlchemyError:
+                db.rollback()
+                if attempt == 0:
+                    time.sleep(1.5)
+                    continue
+                raise
+
         if not user:
             raise HTTPException(status_code=401,detail="Email not registered.")
 

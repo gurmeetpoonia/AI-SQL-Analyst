@@ -10,7 +10,8 @@ engine = create_engine(
     pool_pre_ping=True,   # Har query se pehle connection test karega, agar drop ho chuka hai toh reconnection karega
     pool_recycle=300,     # Har 5 minute (300 sec) me stale connections drop/refresh karega
     pool_size=10,         # Maximum open connections
-    max_overflow=20
+    max_overflow=20,
+    connect_args={"connect_timeout": 15} 
 )
 SessionLocal=sessionmaker(
     autoflush=False,

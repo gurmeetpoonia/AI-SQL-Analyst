@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createPortal } from "react-dom";
-import {FaDatabase,FaFileCsv,FaHistory,FaUpload,FaPlus,FaTimes, FaChevronDown, FaChevronUp,FaEllipsisV,FaEye, FaRobot,  FaTrash, FaLock, FaSignOutAlt, FaInfoCircle, FaPen, FaUndo, FaCheckCircle, FaTimesCircle, FaDownload,  FaChevronRight} from "react-icons/fa";
+import {FaDatabase,FaFileCsv,FaHistory,FaUpload,FaPlus,FaTimes, FaChevronDown, FaChevronUp,FaEllipsisV,FaEye, FaRobot,  FaTrash, FaLock, FaSignOutAlt, FaInfoCircle, FaPen, FaUndo, FaCheckCircle, FaTimesCircle, FaDownload,  FaChevronRight,FaChartLine } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { getUploadedFiles, uploadCSV, deleteDataset } from "../../aiAnalyst/services/uploadService";
 import { getCurrentUser } from "../../auth/services/AuthService";
@@ -467,7 +467,7 @@ function EditorSidebar({ activeDataset, onCloseMobile, setActiveDataset, refresh
                                                             className="file-menu-action"
                                                             onClick={() => handleGoToAnalyst(file)}
                                                         >
-                                                            <FaRobot />
+                                                            <FaChartLine />
                                                             <span>AI Analyst</span>
                                                         </button>
                                                         {/* NAYA: Download option */}

@@ -23,10 +23,14 @@ export const getDisplayFileName = (filename = "") => {
 export const getDatasetIcon = (filename = "") => {
 
     if (isExcelFile(filename)) {
-        return <FaFileExcel className="item-icon excel-icon" />;
+        return <FaFileExcel className="item-icon excel-icon"
+        style={{ color: "#1D6F42" }}
+        />;
     }
 
-    return <FaFileCsv className="item-icon csv-icon" />;
+    return <FaFileCsv className="item-icon csv-icon" 
+    style={{ color: "#22c55e" }}
+    />;
 };
 /* ========================================
    File Size

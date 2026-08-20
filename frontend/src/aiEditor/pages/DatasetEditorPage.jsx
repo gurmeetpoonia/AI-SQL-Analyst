@@ -44,6 +44,9 @@ export default function DatasetEditorPage({ onBack}) {
 
     const [refreshKey, setRefreshKey] = useState(0);
 
+    const [lastGeneratedPrompt, setLastGeneratedPrompt] = useState("");
+    const [planExecuted, setPlanExecuted] = useState(false);
+
     const { datasetId } = useParams();
     const navigate = useNavigate();
 
@@ -108,6 +111,18 @@ export default function DatasetEditorPage({ onBack}) {
         return;
     }
 
+    const currentPrompt = prompt.trim();
+
+    // Same query + plan already generated + not executed
+    if (
+        currentPrompt === lastGeneratedPrompt &&
+        !planExecuted
+    ) {
+        toast.error("Please execute the current plan or change the query.");
+        return;
+    }
+
+
     try {
         setGeneratingPlan(true);
         setPreviewData(null);
@@ -118,6 +133,8 @@ export default function DatasetEditorPage({ onBack}) {
         });
 
         setPlan(planRes);
+        setLastGeneratedPrompt(currentPrompt);
+        setPlanExecuted(false);
         toast.success("AI Plan Generated");
 
         // Auto preview turant call karo
@@ -179,7 +196,7 @@ export default function DatasetEditorPage({ onBack}) {
             setExecuting(true);
 
             await executePlan(plan, prompt);
-
+            setPlanExecuted(true);
             toast.success("Dataset Updated");
 
             setPlan(null);
@@ -314,6 +331,9 @@ useEffect(() => {
                 setPrompt={setPrompt}
                 onGenerate={handleGeneratePlan}
                 loading={generatingPlan}
+
+                lastGeneratedPrompt={lastGeneratedPrompt}
+                planExecuted={planExecuted}
             />
            {previewData && (
     <>

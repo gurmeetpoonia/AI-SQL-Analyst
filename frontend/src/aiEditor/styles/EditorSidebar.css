@@ -115,13 +115,14 @@
     margin: 0;
 }
 
-.csv-icon{
-    color:#22c55e;
-    
+.editor-dataset-item .csv-icon {
+    color: #22c55e !important;
+    fill: #22c55e !important;
 }
 
-.excel-icon{
-    color:#16a34a;
+.editor-dataset-item .excel-icon {
+    color: #1D6F42 !important;
+    fill: #1D6F42 !important;
 }
 
 /* Action Buttons */
@@ -189,8 +190,7 @@
 }
 
 .editor-dataset-item .item-icon {
-    color: #60a5fa;
-    font-size: 13px;
+    font-size: 22px;
     flex-shrink: 0;
 }
 

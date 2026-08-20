@@ -7,7 +7,9 @@ export default function AIEditorBox({
     setPrompt,
     onGenerate,
     onPreview,
-    loading
+    loading,
+    lastGeneratedPrompt,
+    planExecuted
 }) {
 
     // Quick Prompt Suggestions
@@ -22,6 +24,19 @@ export default function AIEditorBox({
         setPrompt(text);
     };
 
+    const sameQueryBlocked =
+        prompt.trim() &&
+        prompt.trim() === lastGeneratedPrompt.trim() &&
+        !planExecuted;
+
+    const handleGenerate = () => {
+
+        if (sameQueryBlocked) {
+            return;
+        }
+
+        onGenerate();
+    };
     
 
     return (
@@ -42,6 +57,7 @@ export default function AIEditorBox({
                 <span className="suggestion-label"><FaLightbulb /> Try:</span>
                 {suggestions.map((text, idx) => (
                     <button
+                        type="button"
                         key={idx}
                         className="suggestion-chip"
                         onClick={() => handleSuggestionClick(text)}
@@ -56,7 +72,15 @@ export default function AIEditorBox({
                 <textarea
                     value={prompt}
                     onChange={(e) => setPrompt(e.target.value)}
-                    placeholder="e.g. Delete rows where price is less than 50000..."
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            if (!loading && prompt.trim()) {
+                                onGenerate();
+                            }
+                        }
+                    }}        
+                    placeholder="e.g. Delete duplicate rows..."
                     rows={3}
                     className="ai-textarea"
                 />
@@ -65,14 +89,22 @@ export default function AIEditorBox({
             {/* Action Buttons */}
             <div className="ai-editor-actions">
                 <button
+                    type="button"
                     className="generate-btn"
                     onClick={onGenerate}
-                    disabled={loading || !prompt.trim()}
+                    disabled={loading || !prompt.trim() ||
+                        sameQueryBlocked
+                    }
                 >
                     {loading ? (
                         <>
                             <FaSpinner className="spin-icon" /> Generating Plan...
                         </>
+                        ) : sameQueryBlocked ? (
+                    <>
+                        <FaWandMagicSparkles />
+                        Execute Plan First
+                    </>
                     ) : (
                         <>
                             <FaWandMagicSparkles /> Generate Plan

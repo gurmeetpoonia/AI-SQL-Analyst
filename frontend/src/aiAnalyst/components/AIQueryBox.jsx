@@ -12,6 +12,7 @@ function AIQueryBox({ onGenerate }) {
     try {
       setLoading(true);
       await onGenerate(question);
+      setQuestion("");   
     } finally {
       setLoading(false);
     }
@@ -36,12 +37,15 @@ function AIQueryBox({ onGenerate }) {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleSubmit();
+            if (e.key === "Enter") 
+              e.preventDefault();
+              handleSubmit();
           }}
           disabled={loading}
         />
 
         <button
+          type="button"
           onClick={handleSubmit}
           disabled={loading || !question.trim()}
           className="ai-submit-btn"

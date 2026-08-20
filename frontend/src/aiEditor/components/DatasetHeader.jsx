@@ -8,7 +8,8 @@ import {
     FaEllipsisV,
     FaBars,
     FaEdit, FaRobot,
-    FaDownload
+    FaDownload,
+    FaChartLine 
 } from "react-icons/fa";
 import toast from "react-hot-toast";
 import {
@@ -169,7 +170,7 @@ function DatasetHeader({
                         data-tooltip="AI Analyst"
                         aria-label="AI Analyst"
                     >
-                        <FaEdit />
+                        <FaChartLine />
                     </button>
 
                     {/* Single Icon-Only Menu Button */}

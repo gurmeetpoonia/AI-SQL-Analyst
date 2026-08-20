@@ -21,7 +21,7 @@ function Dashboard() {
   });
 
 // workspace | editor
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [datasets, setDatasets] = useState([]);
 
   const [activeDataset, setActiveDataset] = useState(null);
@@ -30,6 +30,8 @@ function Dashboard() {
   const [aiLoading, setAiLoading] = useState(false);
 
   const [allQueries, setAllQueries] = useState([]);
+  const [statsLoading, setStatsLoading] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);   // 👈 naya state
 
  
 
@@ -46,7 +48,7 @@ function Dashboard() {
 
     try {
 
-        setLoading(true);
+       
 
         const [statsData, files] = await Promise.all([
             getDashboardStats(),
@@ -59,7 +61,11 @@ function Dashboard() {
 
         if (files.length > 0) {
 
-            setActiveDataset(files[0]);
+            setActiveDataset((prev) => {
+                // agar pehle se koi dataset selected hai aur wo list mein maujood hai, usi ko rakho
+                const stillExists = files.find(f => f.table_name === prev?.table_name);
+                return stillExists || files[0];
+            });
 
         } else {
 
@@ -75,8 +81,8 @@ function Dashboard() {
         toast.error("Failed to load dashboard.");
 
     } finally {
-
         setLoading(false);
+        setInitialLoad(false);
 
     }
 
@@ -203,18 +209,7 @@ setRefreshKey(prev => prev + 1);
     }
 
 };
-  if (loading) {
-    return (
-      <DashboardLayout>
-        <div className="dashboard-loading-state">
-          <div className="loader-pulse"></div>
-          <p>Loading Dashboard Metrics...</p>
-        </div>
-      </DashboardLayout>
-    );
-  }
-
-
+ 
  return (
   <DashboardLayout refreshKey={refreshKey}
   activeDataset={activeDataset}
@@ -223,8 +218,13 @@ setRefreshKey(prev => prev + 1);
  
   >
 
-{
-    !activeDataset ? (
+    {
+      initialLoad ? (
+        // pehli baar load hote waqt kuch bhi flash nahi hoga
+        <div className="dashboard-skeleton">
+          <div className="loader-pulse"></div>
+        </div>
+      ) : !activeDataset ? (
 
         <EmptyWorkspace
             onUploadSuccess={refreshDashboard}
