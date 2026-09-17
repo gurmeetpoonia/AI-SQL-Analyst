@@ -81,11 +81,7 @@ docker compose logs -f
 
 ---
 
-## 📸 Screenshots
 
-(Add your dashboard screenshots here)
-
----
 
 ## 👨‍💻 Author
 
